@@ -1,12 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { TelegramStarsService } from '@app/crypto-payments/telegram-stars/telegram-stars.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly telegramStarsService: TelegramStarsService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getHello(): void {
+    this.telegramStarsService.createPayment({} as any);
   }
 }

@@ -1,35 +1,81 @@
-import { Module, Provider } from '@nestjs/common';
-import { ThirdPartyTonService } from '@app/crypto-payments/services/third-party-ton/third-party-ton.service';
-import { HttpHelper } from '@app/crypto-payments/helpers/http.helper';
-import { ThirdPartyProviderInfo } from '@app/crypto-payments/types/payment-utilities.type';
-import { PaymentGateway } from '@app/crypto-payments/enum/payment-gateway.enum';
+import { Global, Module, Provider } from '@nestjs/common';
+import { ThirdPartyTonService } from './services/third-party-ton/third-party-ton.service';
+import { HttpHelper } from './helpers/http.helper';
+import { ThirdPartyProviderInfo } from './types/payment-utilities.type';
+import { PaymentGateway } from './enum/payment-gateway.enum';
+import { TelegramStarsService } from './telegram-stars/telegram-stars.service';
+import { TelegramBotProvider } from './providers/telegram-bot.provider';
 
-const createAsyncProviders = (
-  options: { type: PaymentGateway; providerInfo: ThirdPartyProviderInfo }[],
-): Provider[] => {
-  return options.map((option) => ({
-    provide: `${option.type}`,
-    useFactory: async (httpHelper: HttpHelper) => {
-      if (option.type === PaymentGateway.ThirdPartyTon) {
-        return new ThirdPartyTonService(httpHelper, option.providerInfo);
-      }
+type ProviderOptions = {
+  type: PaymentGateway;
+  providerInfo: ThirdPartyProviderInfo;
+};
 
-      throw new Error(`Invalid payment type "${option.type}"`);
-    },
-    inject: [HttpHelper],
-  }));
+type CryptoPaymentsModuleOptions = {
+  useFactory: (...args: any[]) => Promise<ProviderOptions[]>;
+  inject?: any[];
+};
+
+const createProviders = (options: ProviderOptions[]): Provider[] => {
+  return options.map((option) => {
+    if (option.type === PaymentGateway.ThirdPartyTon) {
+      return {
+        provide: ThirdPartyTonService,
+        useFactory: async (httpHelper: HttpHelper) => {
+          return new ThirdPartyTonService(httpHelper, option.providerInfo);
+        },
+        inject: [HttpHelper],
+      };
+    }
+
+    if (option.type === PaymentGateway.TelegramStars) {
+      return {
+        provide: TelegramStarsService,
+        useFactory: async () => {
+          return new TelegramStarsService(
+            new TelegramBotProvider(option.providerInfo.clientSecret),
+          );
+        },
+        inject: [],
+      };
+    }
+
+    throw new Error(`Invalid payment type "${option.type}"`);
+  });
 };
 
 @Module({})
 export class CryptoPaymentsModule {
-  static registerAsync(
-    options: { type: PaymentGateway; providerInfo: ThirdPartyProviderInfo }[],
-  ) {
-    const providers = createAsyncProviders(options);
+  static register(options) {
+    const providers = createProviders(options);
+
     return {
       module: CryptoPaymentsModule,
       providers: [HttpHelper, ...providers],
-      exports: [...providers],
+      exports: providers,
     };
   }
+  // static registerAsync(options: CryptoPaymentsModuleOptions) {
+  //   const asyncProviders: Provider = {
+  //     provide: 'CONFIG_OPTIONS',
+  //     useFactory: options.useFactory,
+  //     inject: [],
+  //   };
+  //
+  //   return {
+  //     module: CryptoPaymentsModule,
+  //     providers: [
+  //       HttpHelper,
+  //       asyncProviders,
+  //       {
+  //         provide: 'PAYMENT_SERVICES',
+  //         useFactory: async (configOptions) => {
+  //           return createAsyncProviders(configOptions);
+  //         },
+  //         inject: ['CONFIG_OPTIONS'],
+  //       },
+  //     ],
+  //     exports: [TelegramStarsService],
+  //   };
+  // }
 }
