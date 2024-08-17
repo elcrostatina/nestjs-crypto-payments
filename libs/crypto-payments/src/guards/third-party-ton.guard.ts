@@ -1,9 +1,9 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { ThirdPartyTonService } from '@app/crypto-payments/services/third-party-ton/third-party-ton.service';
 
+// @todo: implement webhook guard
 @Injectable()
 export class WebhookGuard implements CanActivate {
-  constructor(private readonly thirdPartyTonService: ThirdPartyTonService) {}
+  constructor() {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const signature = context.switchToHttp().getRequest().body.signature;
@@ -11,7 +11,5 @@ export class WebhookGuard implements CanActivate {
     if (!signature) {
       return false;
     }
-
-    return this.thirdPartyTonService.validateWebhookSignature(signature);
   }
 }

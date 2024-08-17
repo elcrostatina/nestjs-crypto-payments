@@ -8,7 +8,9 @@ import { TelegramBotProvider } from '@app/crypto-payments/providers/telegram-bot
 import { v4 as uuidv4 } from 'uuid';
 import { PaymentStatus } from '@app/crypto-payments/enum/payment-status.enum';
 
-export class TelegramStarsService implements PaymentService {
+export class TelegramStarsService
+  implements PaymentService<TelegramBotCreatePaymentParams>
+{
   constructor(private readonly telegramBotProvider: TelegramBotProvider) {}
 
   public async createPayment(

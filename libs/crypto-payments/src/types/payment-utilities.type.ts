@@ -16,7 +16,10 @@ export type CreatePaymentParams = {
   orderId: string;
 };
 
-export type TelegramBotCreatePaymentParams = CreatePaymentParams & {
+export type TelegramBotCreatePaymentParams = Pick<
+  CreatePaymentParams,
+  'orderId'
+> & {
   title: string;
   description: string;
   prices: LabeledPrice[];
@@ -30,4 +33,8 @@ export type ThirdPartyProviderInfo = {
   host?: string;
   clientId?: string;
   clientSecret: string;
+};
+
+export type TonStarsProviderInfo = {
+  botToken: string;
 };

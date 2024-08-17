@@ -4,8 +4,6 @@ import { AppService } from './app.service';
 import { CryptoPaymentsModule } from '@app/crypto-payments';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as process from 'node:process';
-import { PaymentGateway } from '@app/crypto-payments/enum/payment-gateway.enum';
-import { TelegramStarsService } from '@app/crypto-payments/telegram-stars/telegram-stars.service';
 
 export const config = () => ({
   telegramBot: process.env.TOKEN_BOT,
@@ -18,27 +16,15 @@ export const config = () => ({
       load: [config],
       envFilePath: process.env.ENV_FILE,
     }),
-    CryptoPaymentsModule.register([
-      {
-        type: PaymentGateway.TelegramStars,
-        providerInfo: {
-          clientSecret: '',
-        },
+    CryptoPaymentsModule.registerTonStarsAsync({
+      useFactory: (configService: ConfigService) => {
+        return {
+          botToken: configService.get('telegramBot'),
+        };
       },
-    ]),
-    // CryptoPaymentsModule.registerAsync({
-    //   useFactory: async (configService: ConfigService) => {
-    //     return [
-    //       {
-    //         type: PaymentGateway.TelegramStars,
-    //         providerInfo: {
-    //           clientSecret: '',
-    //         },
-    //       },
-    //     ];
-    //   },
-    //   inject: [ConfigService],
-    // }),
+      inject: [ConfigService],
+      imports: [ConfigModule],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
