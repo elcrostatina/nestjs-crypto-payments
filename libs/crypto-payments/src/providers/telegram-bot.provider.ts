@@ -4,7 +4,6 @@ export class TelegramBotProvider {
   private bot: Bot;
 
   constructor(private readonly botToken: string) {
-    console.log('Creating bot');
     this.createBot();
   }
 

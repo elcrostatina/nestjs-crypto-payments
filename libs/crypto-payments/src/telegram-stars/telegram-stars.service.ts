@@ -14,9 +14,6 @@ export class TelegramStarsService implements PaymentService {
   public async createPayment(
     params: TelegramBotCreatePaymentParams,
   ): Promise<TelegramBotCreatePaymentResponse> {
-    console.log('Creating payment');
-    return;
-
     const payload = {
       intentId: uuidv4(),
       orderId: params.orderId,
