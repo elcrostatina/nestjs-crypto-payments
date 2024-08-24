@@ -1,6 +1,6 @@
 {
   "name": "nestjs-crypto-payments",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "author": "elCrostatina",
   "private": false,
@@ -20,6 +20,18 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "publish:npm": "npm publish --access public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elcrostatina/nestjs-crypto-payments"
+  },
+  "keywords": [
+    "nestjs",
+    "crypto",
+    "payments",
+    "telegram",
+    "bot",
+    "telegram stars"
+  ],
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.3",
