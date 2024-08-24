@@ -1,6 +1,6 @@
 {
   "name": "nestjs-crypto-payments",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "description": "",
   "author": "elCrostatina",
   "private": false,
@@ -18,15 +18,17 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "publish:npm": "npm publish --access public"
+    "publish:npm": "npm run build && npm publish --access public"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/elcrostatina/nestjs-crypto-payments"
   },
   "files": [
-    "dist"
+    "dist/"
   ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "keywords": [
     "nestjs",
     "crypto",
