@@ -4,16 +4,22 @@ import { TelegramStarsService } from '@app/crypto-payments/services/telegram-sta
 
 @Controller()
 export class AppController {
-  constructor(private readonly telegramStarsService: TelegramStarsService) {}
+  constructor(private readonly telegramStarsService: TelegramStarsService) {
+    this.telegramStarsService.getPreCheckoutObservable().subscribe((data) => {
+      console.log({ preCheckout: data });
+    });
+    this.telegramStarsService.getCheckoutObservable().subscribe((data) => {
+      console.log({ complete: data });
+    });
+  }
 
   @Get()
   async getHello(): Promise<any> {
-    console.log('telegramStarsService', this.telegramStarsService);
     return this.telegramStarsService.createPayment({
       orderId: '123',
       title: 'Test',
       description: 'Test',
-      prices: [{ label: 'Test', amount: 100 }],
+      prices: [{ label: 'Test', amount: 1 }],
     });
   }
 }

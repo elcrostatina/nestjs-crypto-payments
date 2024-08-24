@@ -5,6 +5,7 @@ import { WebhookGuard } from '@app/crypto-payments/guards/third-party-ton.guard'
 //   (data: unknown, ctx: ExecutionContext) =>
 //     ctx.switchToHttp().getRequest().body,
 // );
+// todo: implement a third-party service that requires a webhook
 export const PaymentWebhook = (path: string) => {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     return applyDecorators(Post(path), UseGuards(WebhookGuard))(

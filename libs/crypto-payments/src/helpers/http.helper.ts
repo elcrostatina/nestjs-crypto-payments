@@ -3,7 +3,7 @@ import {
   BaseRequestParams,
   BaseRequestResponse,
   RequestParams,
-} from '../types/http.type';
+} from '../interfaces/http.interface';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

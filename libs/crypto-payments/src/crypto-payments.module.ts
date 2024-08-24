@@ -3,10 +3,11 @@ import { HttpHelper } from './helpers/http.helper';
 import {
   ThirdPartyProviderInfo,
   TonStarsProviderInfo,
-} from './types/payment-utilities.type';
+} from './interfaces/payment-utilities.interface';
 import { PaymentGateway } from './enum/payment-gateway.enum';
 import { TelegramStarsService } from '@app/crypto-payments/services/telegram-stars/telegram-stars.service';
 import { TelegramBotProvider } from './providers/telegram-bot.provider';
+import { TelegramStarsMapper } from '@app/crypto-payments/mappers/telegram-stars.mapper';
 
 type ProviderOptions = {
   type: PaymentGateway;
@@ -44,7 +45,10 @@ export class CryptoPaymentsModule {
         {
           provide: TelegramStarsService,
           useFactory: async (options) =>
-            new TelegramStarsService(new TelegramBotProvider(options.botToken)),
+            new TelegramStarsService(
+              new TelegramBotProvider(options.botToken),
+              new TelegramStarsMapper(),
+            ),
           inject: [CRYPTO_PAYMENTS_MODULE_OPTIONS],
         },
       ],
@@ -56,7 +60,10 @@ export class CryptoPaymentsModule {
   private static createTonStarsInstance(
     options: TonStarsProviderInfo,
   ): TelegramStarsService {
-    return new TelegramStarsService(new TelegramBotProvider(options.botToken));
+    return new TelegramStarsService(
+      new TelegramBotProvider(options.botToken),
+      new TelegramStarsMapper(),
+    );
   }
 
   private static createProviders(options: ProviderOptions[]): Provider[] {
