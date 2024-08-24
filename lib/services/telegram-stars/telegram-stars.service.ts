@@ -35,7 +35,7 @@ export class TelegramStarsService
   public handleBotMessages(): void {
     this.telegramBotProvider.getBot().start();
 
-    // subscribe to pre_checkout_query to return to execute answerPreCheckoutQuery(true)
+    // subscribe to pre_checkout_query to execute answerPreCheckoutQuery(true)
     this.preCheckoutObservable.subscribe();
   }
 
