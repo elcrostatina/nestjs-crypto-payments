@@ -1,6 +1,6 @@
 import { Controller, Get, Inject } from '@nestjs/common';
 import { AppService } from './app.service';
-import { TelegramStarsService } from '@app/crypto-payments/services/telegram-stars/telegram-stars.service';
+import { TelegramStarsService } from '../../lib/services/telegram-stars/telegram-stars.service';
 
 @Controller()
 export class AppController {

@@ -1,16 +1,16 @@
-import { PaymentService } from '@app/crypto-payments/interfaces/payment-service.interface';
 import {
   TelegramPreCheckoutQuery,
   TelegramBotCreatePaymentParams,
   TelegramBotCreatePaymentResponse,
   TelegramCheckoutQuery,
-} from '@app/crypto-payments/interfaces/payment-utilities.interface';
-import { TelegramBotProvider } from '@app/crypto-payments/providers/telegram-bot.provider';
+} from '../../interfaces/payment-utilities.interface';
 import { v4 as uuidv4 } from 'uuid';
-import { PaymentStatus } from '@app/crypto-payments/enum/payment-status.enum';
 import { OnModuleInit } from '@nestjs/common';
 import { Observable, Subscriber } from 'rxjs';
-import { TelegramStarsMapper } from '@app/crypto-payments/mappers/telegram-stars.mapper';
+import { PaymentService } from '../../interfaces/payment-service.interface';
+import { TelegramBotProvider } from '../../providers/telegram-bot.provider';
+import { TelegramStarsMapper } from '../../mappers/telegram-stars.mapper';
+import { PaymentStatus } from '../../enum/payment-status.enum';
 
 export class TelegramStarsService
   implements PaymentService<TelegramBotCreatePaymentParams>, OnModuleInit

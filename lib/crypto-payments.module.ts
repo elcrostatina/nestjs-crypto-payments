@@ -5,9 +5,9 @@ import {
   TonStarsProviderInfo,
 } from './interfaces/payment-utilities.interface';
 import { PaymentGateway } from './enum/payment-gateway.enum';
-import { TelegramStarsService } from '@app/crypto-payments/services/telegram-stars/telegram-stars.service';
+import { TelegramStarsService } from './services/telegram-stars/telegram-stars.service';
 import { TelegramBotProvider } from './providers/telegram-bot.provider';
-import { TelegramStarsMapper } from '@app/crypto-payments/mappers/telegram-stars.mapper';
+import { TelegramStarsMapper } from './mappers/telegram-stars.mapper';
 
 type ProviderOptions = {
   type: PaymentGateway;

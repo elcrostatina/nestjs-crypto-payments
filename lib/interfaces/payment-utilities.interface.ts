@@ -1,4 +1,4 @@
-import { PaymentStatus } from '@app/crypto-payments/enum/payment-status.enum';
+import { PaymentStatus } from '../enum/payment-status.enum';
 import type { LabeledPrice } from 'grammy/out/types';
 
 export interface CreatePaymentResponse {

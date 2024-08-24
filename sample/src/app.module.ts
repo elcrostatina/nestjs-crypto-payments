@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CryptoPaymentsModule } from '@app/crypto-payments';
+import { CryptoPaymentsModule } from '../../lib';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as process from 'node:process';
 

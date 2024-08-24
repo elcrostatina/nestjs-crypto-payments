@@ -2,8 +2,8 @@ import {
   TelegramCheckoutQuery,
   TelegramCheckoutQueryFrom,
   TelegramPreCheckoutQuery,
-} from '@app/crypto-payments/interfaces/payment-utilities.interface';
-import { PaymentStatus } from '@app/crypto-payments/enum/payment-status.enum';
+} from '../interfaces/payment-utilities.interface';
+import { PaymentStatus } from '../enum/payment-status.enum';
 
 export class TelegramStarsMapper {
   public mapPreCheckoutQuery(ctx): TelegramPreCheckoutQuery {

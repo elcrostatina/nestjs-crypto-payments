@@ -1,5 +1,5 @@
 import { applyDecorators, Post, UseGuards } from '@nestjs/common';
-import { WebhookGuard } from '@app/crypto-payments/guards/third-party-ton.guard';
+import { WebhookGuard } from '../../guards/third-party-ton.guard';
 
 // export const ExtractBody = createParamDecorator(
 //   (data: unknown, ctx: ExecutionContext) =>
