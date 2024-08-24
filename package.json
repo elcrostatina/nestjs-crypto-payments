@@ -2,9 +2,9 @@
   "name": "nestjs-crypto-payments",
   "version": "0.0.1",
   "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "author": "elCrostatina",
+  "private": false,
+  "license": "MIT",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write \"lib/**/*.ts\"",
@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "publish:npm": "npm publish --access public"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
