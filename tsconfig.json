@@ -17,13 +17,5 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {
-      "@app/crypto-payments": [
-        "libs/crypto-payments/src"
-      ],
-      "@app/crypto-payments/*": [
-        "libs/crypto-payments/src/*"
-      ]
-    }
   }
 }
