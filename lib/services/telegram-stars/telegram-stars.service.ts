@@ -38,7 +38,7 @@ export class TelegramStarsService
       .start()
       .catch((e) => Logger.error(e));
 
-    // subscribe to pre_checkout_query to return to execute answerPreCheckoutQuery(true)
+    // subscribe to pre_checkout_query to execute answerPreCheckoutQuery(true)
     this.preCheckoutObservable.subscribe();
   }
 
