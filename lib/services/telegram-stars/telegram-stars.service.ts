@@ -5,7 +5,7 @@ import {
   TelegramCheckoutQuery,
 } from '../../interfaces/payment-utilities.interface';
 import { v4 as uuidv4 } from 'uuid';
-import { OnModuleInit } from '@nestjs/common';
+import { Logger, OnModuleInit } from '@nestjs/common';
 import { Observable, Subscriber } from 'rxjs';
 import { PaymentService } from '../../interfaces/payment-service.interface';
 import { TelegramBotProvider } from '../../providers/telegram-bot.provider';
@@ -33,7 +33,10 @@ export class TelegramStarsService
   }
 
   public handleBotMessages(): void {
-    this.telegramBotProvider.getBot().start();
+    this.telegramBotProvider
+      .getBot()
+      .start()
+      .catch((e) => Logger.error(e));
 
     // subscribe to pre_checkout_query to return to execute answerPreCheckoutQuery(true)
     this.preCheckoutObservable.subscribe();
